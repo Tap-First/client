@@ -1,4 +1,6 @@
 <template>
+<div>
+  <create-room />
   <div class="row room">
     <div class="column">
       <div class="card">
@@ -11,16 +13,21 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
 import socket from "@/config/socket.js";
+import CreateRoom from "../components/CreateRoom"
 export default {
   name: "Room",
   data() {
     return {
       rooms: []
     };
+  },
+  components: {
+    CreateRoom
   }
 };
 </script>
