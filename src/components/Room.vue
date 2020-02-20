@@ -1,15 +1,18 @@
 <template>
   <div>
     <create-room @getRoom="findAllRooms" />
-    <div class="row room">
-      <div class="column" v-for="(room,i) in this.rooms.rooms" :key="i">
-        <div class="card">
-          <img
-            src="https://cdnb.artstation.com/p/assets/images/images/012/193/905/original/maria-hager-titlescreen-retro-glitch.gif?1533552570"
-            style="max-width: 28vh;min-height: 28vh;border-radius: 100%;margin-top: 2%;"
-          />
-          <h1>{{room.name}}</h1>
-          <button @click="goToIngame(room.id)">JOIN</button>
+    <div class="container">
+      <div class="row room">
+        <div class="col-md-3" v-for="(room,i) in rooms.rooms" :key="i">
+          <div class="card">
+            <img
+              src="https://cdnb.artstation.com/p/assets/images/images/012/193/905/original/maria-hager-titlescreen-retro-glitch.gif?1533552570"
+              style="max-width: 28vh;min-height: 28vh;border-radius: 100%;margin-top: 2%;"
+            />
+            <h3 class="mt-3">{{room.name}}</h3>
+            <button v-if="room.players.length < 4" @click="goJoinPlayer(room.id)" class="mb-3">JOIN</button>
+            <button v-if="room.players.length > 1 && room.players.length < 5" @click="goStartGame(room.id)">START</button>
+          </div>
         </div>
       </div>
     </div>
@@ -20,15 +23,16 @@
 import socket from "@/config/socket.js";
 import CreateRoom from "../components/CreateRoom";
 import axios from "axios";
+
 export default {
   name: "Room",
+  components: {
+    CreateRoom
+  },
   data() {
     return {
       rooms: []
     };
-  },
-  components: {
-    CreateRoom
   },
   methods: {
     findAllRooms() {
@@ -38,12 +42,13 @@ export default {
       })
         .then(({ data }) => {
           this.rooms = data;
+          console.log(this.rooms)
         })
         .catch(err => {
           console.log(err.message);
         });
     },
-    goToIngame(id) {
+    goJoinPlayer(id) {
       axios({
         url: "http://localhost:3000/updateplayer",
         method: "put",
@@ -53,11 +58,14 @@ export default {
         }
       })
         .then(({ data }) => {
-          this.$router.push("/ingame");
+
         })
         .catch(err => {
           console.log(err.message);
         });
+    },
+    goStartGame(id){
+      this.$router.push({ name: "InGame", params: {id: id }});
     }
   },
   created() {
@@ -68,11 +76,11 @@ export default {
 
 <style scoped>
 .room {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Luckiest Guy', cursive;
 }
 
 .column {
-  width: 20%;
+  width: 25%;
   float: left;
 }
 

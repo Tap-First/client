@@ -20,7 +20,8 @@ const routes = [
   {
     path: '/ingame',
     name: "InGame",
-    component: InGame
+    component: InGame,
+    props: true
   }
 ]
 

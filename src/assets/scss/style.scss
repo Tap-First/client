@@ -4,7 +4,7 @@
 
   & .box{
     display: inline-block;
-    background-color: rgba(72, 134, 80, .85);
+    background-color: rgba(89, 177, 101, 0.85);
     width: 180px;
     height: 180px;
     margin: 0.5rem;
@@ -20,7 +20,7 @@
   }
 }
 .winner{
-  margin: 4rem 0;
+  margin: 1.5rem 0;
   color: #ffffff;
   letter-spacing: 3px;
 
@@ -29,8 +29,9 @@
     margin-bottom: 1rem;
   }
 
-  & span.win{
+  & h2.win{
     color: #ffd000;
+    font-size: 1.5rem;
   }
 
   & .bt-games{
