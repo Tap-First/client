@@ -2,7 +2,7 @@
     
     <div class="row">
         <div class="offset-md-2 col-md-8 p-3">
-            <form action="" v-on:submit.prevent="createName">
+            <form action="" v-on:submit.prevent="createName" >
                 <div class="form-group">
                     <label for="name">Input name :</label>
                     <input id="name" type="text" v-model="name" class="form-control">
@@ -20,9 +20,10 @@ export default {
             name: null
         }
     },
-    method: {
-        createName: () => {
-            localStorage.setItem("name", name)
+    methods: {
+        createName(){
+            console.log(this.name)
+            localStorage.setItem("name", this.name)
         }
     }
 }
