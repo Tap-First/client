@@ -1,5 +1,5 @@
 <template>
-<main class="ingame">
+<main class="ingame text-center">
   <div class="container">
     <div class="row">
       <div class="col-md-3">
@@ -91,81 +91,5 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
-  }
-  .gameplay{
-    margin: 2rem 0;
-    max-height: 600px;
-
-    & .box{
-      display: inline-block;
-      background-color: rgba(72, 134, 80, .85);
-      width: 180px;
-      height: 180px;
-      margin: 0.5rem;
-
-      &:hover{
-        cursor: pointer;
-      }
-
-      & img{
-        width: 180px;
-        height: 180px;
-      }
-    }
-  }
-  .winner{
-    margin: 4rem 0;
-    color: #ffffff;
-    letter-spacing: 3px;
-
-    & img{
-      width: 300px;
-      margin-bottom: 1rem;
-    }
-
-    & span.win{
-      color: #ffd000;
-    }
-
-    & .bt-games{
-      background-color: #ffd000;
-      color: #131313;
-      padding: 1.3rem 3rem 1rem 3rem;
-      letter-spacing: 1px;
-      font-size: 1.5rem;
-      border-radius: 5px;
-
-      &:hover{
-        cursor: pointer;
-        font-size: 1.7rem;
-        color: #000000;
-      }
-    }
-  }
-  .sidebar-score{
-    margin: 2.5rem 2rem;
-  }
-  .card-score{
-    background-color: rgba(0, 0, 0, 1);
-
-    & .player-name{
-      background-color: rgba(72, 134, 80, .85);
-      color: #ffffff;
-      padding: 10px 0;
-
-      & span{
-        font-size: 20px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-      }
-    }
-
-    & .player-score{
-      font-size: 45px;
-      font-weight: bold;
-      color: #ffffff;
-      padding-top: 10px;
-    }
   }
 </style>
