@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="winner" v-if="!game">
-          <img src="@/assets/gif/trophy.gif" alt="">
+          <img src="@/assets/gif/trophy.gif">
           <h1 class="mb-4">WINNER is <span class="win">TAQI</span></h1>
           <span class="bt-games" @click="backToHome">MAIN LAGI KUY</span>
         </div>
