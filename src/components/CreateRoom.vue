@@ -1,13 +1,12 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4 text-light mt-5">
+      <div class="offset-md-3 col-md-6 p-3 text-light text-center mt-5">
         <form v-on:submit.prevent="createRoom">
           <div class="form-group">
-            <label for>name room:</label>
-            <input v-model="nameRoom" type="text" class="form-control" />
+            <input v-model="nameRoom" type="text" class="form-control" placeholder="Input room name" :disabled="disableCreate" />
           </div>
-          <button type="submit" class="btn btn-success text-center">create</button>
+          <button type="submit" class="btn btn-success text-center" :disabled="disableCreate">Create Room</button>
         </form>
       </div>
     </div>
@@ -19,7 +18,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      nameRoom: ""
+      nameRoom: "",
+      disableCreate: false
     };
   },
   methods: {
@@ -35,7 +35,8 @@ export default {
         .then(({ data }) => {
           this.$emit("getRoom");
           this.nameRoom = "";
-          this.$router.push("/ingame");
+          this.disableCreate = true
+          localStorage.setItem('byroom', localStorage.getItem('name'))
         })
         .catch(err => {
           console.log(err.message);
