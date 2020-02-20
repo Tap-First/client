@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="col-md-8">
-        <div class="gameplay">
+        <div class="gameplay" v-if="game">
           <div class="box">
             <img src="@/assets/gif/giphy.gif" id="1" style="display:block">
           </div>
@@ -40,6 +40,11 @@
             <img src="@/assets/gif/giphy.gif" id="9" style="display:none">
           </div>
         </div>
+        <div class="winner" v-if="!game">
+          <img src="@/assets/gif/trophy.gif" alt="">
+          <h1 class="mb-4">WINNER is <span class="win">TAQI</span></h1>
+          <span class="bt-games" @click="backToHome">MAIN LAGI KUY</span>
+        </div>
       </div>
     </div>
   </div>
@@ -50,12 +55,13 @@
 export default {
   data(){
     return {
+      game: true,
       position: null,
       players: [
-        { name: 'Kevin', score: 0 },
-        { name: 'Taqi', score: 0 },
-        { name: 'Putra', score: 0 },
-        { name: 'Anova', score: 0 },
+        { name: 'Kevin Tan', score: 2 },
+        { name: 'Taqi', score: 4 },
+        { name: 'Putra', score: 3 },
+        { name: 'Anova', score: 5 },
       ]
     }
   },
@@ -66,13 +72,17 @@ export default {
 
   },
   methods: {
-    
+    backToHome(){
+      localStorage.clear()
+      this.$router.push({ path: '/' })
+    }
   },
 }
 </script>
 
 <style lang="scss" scoped>
   main.ingame{
+    font-family: 'Luckiest Guy', cursive;
     background: url('../assets/images/bg-game.jpg');
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -93,9 +103,42 @@ export default {
       height: 180px;
       margin: 0.5rem;
 
+      &:hover{
+        cursor: pointer;
+      }
+
       & img{
         width: 180px;
         height: 180px;
+      }
+    }
+  }
+  .winner{
+    margin: 4rem 0;
+    color: #ffffff;
+    letter-spacing: 3px;
+
+    & img{
+      width: 300px;
+      margin-bottom: 1rem;
+    }
+
+    & span.win{
+      color: #ffd000;
+    }
+
+    & .bt-games{
+      background-color: #ffd000;
+      color: #131313;
+      padding: 1.3rem 3rem 1rem 3rem;
+      letter-spacing: 1px;
+      font-size: 1.5rem;
+      border-radius: 5px;
+
+      &:hover{
+        cursor: pointer;
+        font-size: 1.7rem;
+        color: #000000;
       }
     }
   }
@@ -103,7 +146,7 @@ export default {
     margin: 2.5rem 2rem;
   }
   .card-score{
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 1);
 
     & .player-name{
       background-color: rgba(72, 134, 80, .85);
@@ -114,13 +157,15 @@ export default {
         font-size: 20px;
         font-weight: bold;
         text-transform: uppercase;
+        letter-spacing: 3px;
       }
     }
 
     & .player-score{
-      font-size: 50px;
+      font-size: 45px;
       font-weight: bold;
-      color: #ffd900;
+      color: #ffffff;
+      padding-top: 10px;
     }
   }
 </style>
