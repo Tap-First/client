@@ -1,9 +1,7 @@
 <template>
   <div id="app">
-    <router-view/>
-    <div class="container-fluid">
-
-     <front />
+    <div class="container-fluidS">
+      <router-view/>
     </div>
   </div>
 </template>
@@ -20,8 +18,12 @@ export default {
 <style lang="scss">
 @import './assets/scss/style.scss';
 #app {
-  background-color: cadetblue;
-  height: 100vh;
+  background-image: url("./assets/images/bg-home.jpg");
+  background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+  height: 97.5vh;
 }
 
 </style>
