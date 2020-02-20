@@ -1,16 +1,27 @@
 <template>
   <div id="app">
     <router-view/>
+    <div class="container-fluid">
+
+     <front />
+    </div>
   </div>
 </template>
+
+<script>
+import Front from "./views/Front"
+export default {
+    components: {
+      Front
+    }
+}
+</script>
 
 <style lang="scss">
 @import './assets/scss/style.scss';
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  background-color: cadetblue;
+  height: 100vh;
 }
+
 </style>
