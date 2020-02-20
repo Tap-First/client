@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import InGame from '../components/InGame.vue'
 import Front from '../views/Front'
 import Room from '../components/Room.vue'
@@ -16,17 +15,12 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Room
   },
   {
     path: '/ingame',
     name: "InGame",
     component: InGame
-  },
-  {
-    path: '/rooms',
-    name: "Room",
-    component: Room
   },
   {
     path: '/about',
