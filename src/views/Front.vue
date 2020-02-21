@@ -2,8 +2,6 @@
     <div>
         <logo />
         <create-name />
-
-        
     </div>
 </template>
 

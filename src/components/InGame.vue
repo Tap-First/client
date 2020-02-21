@@ -11,7 +11,21 @@
         </div>
       </div>
       <div class="col-md-8">
+        <div class="rules" v-if="rules">
+          <audio controls autoplay hidden>
+            <source src="../assets/sound/playgame.mp3" type="audio/mpeg">
+          </audio>
+          <h1 class="mb-2">Cara Bermain</h1> 
+          <p>Permainan ini menghitung siapa cepat mentrigger object yang ada pada ke sembilan kotak</p>
+          <p>Siap siap jari tangan anda untuk mendahului kecepatan jari tangan lawan anda</p>
+          <div class="mt-5">
+            <span class="bt-games" v-if="players.length > 1" @click="startingGame">Start Game</span>
+          </div>
+        </div>
         <div class="gameplay" v-if="game">
+          <audio autoplay hidden>
+            <source src="../assets/sound/play.mp3" type="audio/mpeg">
+          </audio>
           <div class="box" @click="actionScore">
             <img src="@/assets/gif/giphy.gif" id="1" :style="{display: position === 1 ? 'block' : 'none'}">
           </div>
@@ -40,7 +54,10 @@
             <img src="@/assets/gif/giphy.gif" id="9" :style="{display: position === 9 ? 'block' : 'none'}">
           </div>
         </div>
-        <div class="winner" v-if="!game">
+        <div class="winner" v-if="wins">
+          <audio autoplay hidden>
+            <source src="../assets/sound/applause.mp3" type="audio/mpeg">
+          </audio>
           <img src="@/assets/gif/trophy.gif">
           <h1 class="mb-2">WINNER is</h1> 
           <h2 class="win mr-2" v-for="(winner,idx) in winners" :key="idx">{{ winner.name }} - Score: {{ winner.score }}</h2>
@@ -60,34 +77,35 @@ export default {
   props: ['id'],
   data(){
     return {
-      game: true,
+      rules: true,
+      game: false,
+      wins: false,
       position: null,
-      players: null,
+      players: [],
       winners: null
     }
   },
   created(){
     this.getRooms()
-    this.timerGame()
-    this.startGamePos()
   },
   mounted(){
 
   },
-  computed: {
-
+  watch: {
+    players() {
+      this.players
+    }
   },
   methods: {
+    startingGame(){
+      this.rules = false
+      this.startGamePos()
+      this.timerGame()
+      this.game = true
+    },
     timerGame(){
       setTimeout(() => {
         this.game = false
-        // let playersStanding = this.players.sort(function(a, b){
-        //   let keyA = a.score,
-        //       keyB = b.score
-        //   if(keyA < keyB) return 1;
-        //   if(keyA > keyB) return -1;
-        //   return 0;
-        // });
         let playersStanding = []
         for(let i = 0; i < this.players.length; i++){
           if(playersStanding.length === 0){
@@ -102,7 +120,8 @@ export default {
           }
         }
         this.winners = playersStanding
-      }, 3000);
+        this.wins = true
+      }, 10000);
     },
     getRooms(){
       axios.get(`http://localhost:3000/rooms`)
@@ -123,6 +142,7 @@ export default {
       }
       axios.post('http://localhost:3000/startgame', dataStart)
       .then(res => {
+        console.log(res)
         this.position = res.data.position
       })
       .catch(err => {

@@ -19,6 +19,16 @@
     }
   }
 }
+.rules{
+  margin: 11rem 0;
+  color: #ffffff;
+  letter-spacing: 1.5px;
+
+  & p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+  }
+}
 .winner{
   margin: 1.5rem 0;
   color: #ffffff;
@@ -33,20 +43,19 @@
     color: #ffd000;
     font-size: 1.5rem;
   }
+}
+.bt-games{
+  background-color: #ffd000;
+  color: #131313;
+  padding: 1.3rem 3rem 1rem 3rem;
+  letter-spacing: 1px;
+  font-size: 1.5rem;
+  border-radius: 5px;
 
-  & .bt-games{
-    background-color: #ffd000;
-    color: #131313;
-    padding: 1.3rem 3rem 1rem 3rem;
-    letter-spacing: 1px;
-    font-size: 1.5rem;
-    border-radius: 5px;
-
-    &:hover{
-      cursor: pointer;
-      font-size: 1.7rem;
-      color: #000000;
-    }
+  &:hover{
+    cursor: pointer;
+    font-size: 1.7rem;
+    color: #000000;
   }
 }
 .sidebar-score{

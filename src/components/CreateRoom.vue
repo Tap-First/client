@@ -33,10 +33,11 @@ export default {
         }
       })
         .then(({ data }) => {
-          this.$emit("getRoom");
+          // this.$emit("getRoom");
           this.nameRoom = "";
           this.disableCreate = true
           localStorage.setItem('byroom', localStorage.getItem('name'))
+          this.$router.push({ name: 'InGame', params: { id : data.rooms[data.rooms.length-1].id }})
         })
         .catch(err => {
           console.log(err.message);
