@@ -11,7 +11,7 @@
             />
             <h3 class="mt-3">{{room.name}}</h3>
             <button v-if="room.players.length < 4" @click="goJoinPlayer(room.id)" class="mb-3">JOIN</button>
-            <button v-if="room.players.length > 1 && room.players.length < 5" @click="goStartGame(room.id)">START</button>
+            <!-- <button v-if="room.players.length > 1 && room.players.length < 5" @click="goStartGame(room.id)">START</button> -->
           </div>
         </div>
       </div>
@@ -42,13 +42,15 @@ export default {
       })
         .then(({ data }) => {
           this.rooms = data;
-          console.log(this.rooms)
+          // console.log(data)
+          // this.$router.push({ name: 'InGame', params: { id : data.rooms[data.rooms.length-1].id }})
         })
         .catch(err => {
           console.log(err.message);
         });
     },
     goJoinPlayer(id) {
+      console.log(id)
       axios({
         url: "http://localhost:3000/updateplayer",
         method: "put",
@@ -57,16 +59,13 @@ export default {
           name: localStorage.getItem("name")
         }
       })
-        .then(({ data }) => {
-
+        .then(res => {
+          this.$router.push({ name: "InGame", params: {id: id }});
         })
         .catch(err => {
-          console.log(err.message);
+          console.log(err);
         });
     },
-    goStartGame(id){
-      this.$router.push({ name: "InGame", params: {id: id }});
-    }
   },
   created() {
     this.findAllRooms();
