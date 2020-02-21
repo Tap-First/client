@@ -17,7 +17,6 @@
               v-if="room.players.length > 1 && room.players.length < 5"
               @click="goStartGame(room.id)"
             >START</button>
-            >>>>>>> modified: package-lock.json
           </div>
         </div>
       </div>
@@ -67,7 +66,6 @@ export default {
       })
         .then(({ data }) => {
           socket.emit("updatePlayer", data);
-          this.$router.push({ name: "InGame", params: { id: id } });
         })
         .catch(err => {
           console.log(err);
@@ -78,8 +76,9 @@ export default {
     this.findAllRooms();
   },
   mounted() {
-    socket.on("connectRoom", id => {
-      this.goStartGame(id);
+    socket.on("connectRoom", data => {
+      // console.log(id, "ini id di room");
+      this.$router.push({ name: "InGame", params: { id: data.id } });
     });
     socket.on("getRoom", () => {
       this.findAllRooms();

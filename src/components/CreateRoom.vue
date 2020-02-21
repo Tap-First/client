@@ -45,13 +45,15 @@ export default {
       })
         .then(({ data }) => {
           // this.$emit("getRoom");
-          socket.emit("findAllRoom", data);
+          console.log(data);
+          socket.emit("findAllRoom");
+          socket.emit("createRoomSocket", data.rooms[0]);
           this.nameRoom = "";
           this.disableCreate = true;
           localStorage.setItem("byroom", localStorage.getItem("name"));
           this.$router.push({
             name: "InGame",
-            params: { id: data.rooms[data.rooms.length - 1].id }
+            params: { id: data.rooms[0].id }
           });
         })
         .catch(err => {
