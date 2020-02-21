@@ -10,8 +10,14 @@
               style="max-width: 28vh;min-height: 28vh;border-radius: 100%;margin-top: 2%;"
             />
             <h3 class="mt-3">{{room.name}}</h3>
+            <h3 class="mt-3">{{room.players.length}}/4</h3>
             <button v-if="room.players.length < 4" @click="goJoinPlayer(room.id)" class="mb-3">JOIN</button>
             <!-- <button v-if="room.players.length > 1 && room.players.length < 5" @click="goStartGame(room.id)">START</button> -->
+            <button
+              v-if="room.players.length > 1 && room.players.length < 5"
+              @click="goStartGame(room.id)"
+            >START</button>
+            >>>>>>> modified: package-lock.json
           </div>
         </div>
       </div>
@@ -50,7 +56,7 @@ export default {
         });
     },
     goJoinPlayer(id) {
-      console.log(id)
+      console.log(id);
       axios({
         url: "http://localhost:3000/updateplayer",
         method: "put",
@@ -59,23 +65,32 @@ export default {
           name: localStorage.getItem("name")
         }
       })
-        .then(res => {
-          this.$router.push({ name: "InGame", params: {id: id }});
+        .then(({ data }) => {
+          socket.emit("updatePlayer", data);
+          this.$router.push({ name: "InGame", params: { id: id } });
         })
         .catch(err => {
           console.log(err);
         });
-    },
+    }
   },
   created() {
     this.findAllRooms();
+  },
+  mounted() {
+    socket.on("connectRoom", id => {
+      this.goStartGame(id);
+    });
+    socket.on("getRoom", () => {
+      this.findAllRooms();
+    });
   }
 };
 </script>
 
 <style scoped>
 .room {
-  font-family: 'Luckiest Guy', cursive;
+  font-family: "Luckiest Guy", cursive;
 }
 
 .column {
