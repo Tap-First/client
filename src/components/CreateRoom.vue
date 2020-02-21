@@ -4,9 +4,19 @@
       <div class="offset-md-3 col-md-6 p-3 text-light text-center mt-5">
         <form v-on:submit.prevent="createRoom">
           <div class="form-group">
-            <input v-model="nameRoom" type="text" class="form-control" placeholder="Input room name" :disabled="disableCreate" />
+            <input
+              v-model="nameRoom"
+              type="text"
+              class="form-control"
+              placeholder="Input room name"
+              :disabled="disableCreate"
+            />
           </div>
-          <button type="submit" class="btn btn-success text-center" :disabled="disableCreate">Create Room</button>
+          <button
+            type="submit"
+            class="btn btn-success text-center"
+            :disabled="disableCreate"
+          >Create Room</button>
         </form>
       </div>
     </div>
@@ -15,6 +25,7 @@
 
 <script>
 import axios from "axios";
+import socket from "@/config/socket.js";
 export default {
   data() {
     return {
@@ -34,10 +45,16 @@ export default {
       })
         .then(({ data }) => {
           // this.$emit("getRoom");
+          console.log(data);
+          socket.emit("findAllRoom");
+          socket.emit("createRoomSocket", data.rooms[0]);
           this.nameRoom = "";
-          this.disableCreate = true
-          localStorage.setItem('byroom', localStorage.getItem('name'))
-          this.$router.push({ name: 'InGame', params: { id : data.rooms[data.rooms.length-1].id }})
+          this.disableCreate = true;
+          localStorage.setItem("byroom", localStorage.getItem("name"));
+          this.$router.push({
+            name: "InGame",
+            params: { id: data.rooms[0].id }
+          });
         })
         .catch(err => {
           console.log(err.message);
